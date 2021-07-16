@@ -1,14 +1,15 @@
 {
   "author": {
-    "name": "Gérard Le Cloërec",
-    "email": "gerard.le.cloerec@gmail.com"
+    "name": "Wertarbyte",
+    "email": "info@wertarbyte.com"
   },
   "bugs": {
-    "url": "https://github.com/haegemonia76/ftp-sftp/issues"
+    "url": "https://github.com/TeamWertarbyte/ftp-sftp/issues"
   },
   "contributors": [
     "Dennis Heckmann <denheckmann@googlemail.com>",
-    "Gérard Le Cloërec <gerard.le.cloerec@gmail.com>"
+    "Gérard Le Cloërec <gerard.le.cloerec@gmail.com>",
+    "Wertarbyte <info@wertarbyte.com>"
   ],
   "dependencies": {
     "@types/ftp": "^0.3.30",
@@ -26,7 +27,7 @@
     "typescript": "^3.7.3"
   },
   "description": "Treat Local, FTP and SFTP file systems the same way.",
-  "homepage": "https://github.com/haegemonia76/ftp-sftp#readme",
+  "homepage": "https://github.com/TeamWertarbyte/ftp-sftp#readme",
   "keywords": [
     "local",
     "ftp",
@@ -37,10 +38,10 @@
   "license": "ISC",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "name": "local-ftp-sftp",
+  "name": "@wertarbyte/local-ftp-sftp",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haegemonia76/ftp-sftp.git"
+    "url": "git+https://github.com/TeamWertarbyte/ftp-sftp.git"
   },
   "version": "1.0.11",
   "scripts": {
