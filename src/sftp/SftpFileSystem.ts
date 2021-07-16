@@ -6,15 +6,26 @@ import SftpFileInfo from './SftpFileInfo';
 export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
   constructor(public readonly client: SftpClient) {}
 
-  static async create(
-    host: string,
-    port: number,
-    user: string,
-    password?: string,
-    options?: SftpClient.ConnectOptions,
-  ) {
+  /**
+   * Create a SftpFileSystem and open the connection.
+   * @param options.connectionOptions Additional connection options for the ssh2-sftp-client client, see https://www.npmjs.com/package/ssh2-sftp-client#sec-5-2-2
+   * @returns Connected SftpFileSystem
+   */
+  static async create({
+    host,
+    port,
+    user,
+    password,
+    connectionOptions,
+  }: {
+    host: string;
+    port: number;
+    user: string;
+    password?: string;
+    connectionOptions?: SftpClient.ConnectOptions;
+  }) {
     const c = new SftpClient();
-    await c.connect({ host, port, username: user, password, ...options });
+    await c.connect({ host, port, username: user, password, ...connectionOptions });
     return new SftpFileSystem(c);
   }
 
