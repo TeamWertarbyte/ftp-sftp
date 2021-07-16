@@ -10,7 +10,7 @@ Treat local, FTP and SFTP files the same way.
 
 ## Installation
 
-    npm i ftp-sftp
+    npm i --save @wertarbyte/local-ftp-sftp
 
 ## Overview
 
@@ -48,7 +48,7 @@ const sftpFileSystem = await SftpFileSystem.create({
 });
 ```
 
-The `connectionOptions` parameter is optional and are passed through to the connect methods of the underlying [ftp][] or [ssh2-sftp-client][] instance. You can use this for advanced configuration, e.g. FTPS settings or private key authentication for SFTP.
+The `connectionOptions` option is optional and is passed through to the connect methods of the underlying [ftp][] or [ssh2-sftp-client][] instance. You can use this for advanced configuration, e.g. FTPS settings or private key authentication for SFTP.
 
 ## API
 
