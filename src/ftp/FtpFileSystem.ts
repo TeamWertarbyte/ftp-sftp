@@ -78,7 +78,7 @@ export default class FtpFileSystem implements FileSystem<FtpFileInfo> {
     });
   }
 
-  readToStream(path: string, destination: NodeJS.WritableStream) {
+  readToStream(path: string, destination: NodeJS.WritableStream): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       this.client.get(path, (err: Error, stream: NodeJS.ReadableStream) => {
         if (err) {
@@ -149,7 +149,7 @@ export default class FtpFileSystem implements FileSystem<FtpFileInfo> {
     }
   }
 
-  close(force = false) {
+  close(force = false): Promise<void> {
     if (force) {
       // close the connection immediately
       this.client.destroy();

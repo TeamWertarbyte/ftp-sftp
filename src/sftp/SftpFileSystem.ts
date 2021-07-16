@@ -23,18 +23,18 @@ export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
     user: string;
     password?: string;
     connectionOptions?: SftpClient.ConnectOptions;
-  }) {
+  }): Promise<SftpFileSystem> {
     const c = new SftpClient();
     await c.connect({ host, port, username: user, password, ...connectionOptions });
     return new SftpFileSystem(c);
   }
 
-  async list(path: string) {
+  async list(path: string): Promise<SftpFileInfo[]> {
     const paths = await this.client.list(path);
     return paths.map((it: SftpClient.FileInfo) => new SftpFileInfo(it));
   }
 
-  async put(src: string | Buffer | NodeJS.ReadableStream, toPath: string) {
+  async put(src: string | Buffer | NodeJS.ReadableStream, toPath: string): Promise<void> {
     await this.client.put(src, toPath);
   }
 
@@ -42,15 +42,15 @@ export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
     return this.client.get(path) as Promise<Buffer>;
   }
 
-  async readToStream(path: string, destination: NodeJS.WritableStream) {
+  async readToStream(path: string, destination: NodeJS.WritableStream): Promise<void> {
     await this.client.get(path, destination);
   }
 
-  async mkdir(path: string, recursive: boolean) {
+  async mkdir(path: string, recursive: boolean): Promise<void> {
     await this.client.mkdir(path, recursive);
   }
 
-  async rmdir(path: string, recursive: boolean) {
+  async rmdir(path: string, recursive: boolean): Promise<void> {
     await this.client.rmdir(path, recursive);
   }
 
@@ -58,7 +58,7 @@ export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
     await this.client.delete(path);
   }
 
-  async rename(oldPath: string, newPath: string) {
+  async rename(oldPath: string, newPath: string): Promise<void> {
     await this.client.rename(oldPath, newPath);
   }
 
@@ -81,7 +81,7 @@ export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
     }
   }
 
-  async close() {
+  async close(): Promise<void> {
     await this.client.end();
   }
 }

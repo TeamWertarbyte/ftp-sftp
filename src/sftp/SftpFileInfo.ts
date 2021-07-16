@@ -12,7 +12,7 @@ export default class SftpFileInfo implements FileInfo {
     return this.original.size;
   }
 
-  get type() {
+  get type(): FileType {
     switch (this.original.type) {
       case 'd':
         return FileType.Directory;
@@ -24,7 +24,7 @@ export default class SftpFileInfo implements FileInfo {
     }
   }
 
-  get isDirectory() {
+  get isDirectory(): boolean {
     return this.original.type === 'd';
   }
 }

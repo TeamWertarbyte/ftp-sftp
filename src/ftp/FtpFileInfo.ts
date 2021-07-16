@@ -4,15 +4,15 @@ import FtpClient = require('ftp');
 export default class FtpFileInfo implements FileInfo {
   constructor(public readonly original: FtpClient.ListingElement) {}
 
-  get name() {
+  get name(): string {
     return this.original.name;
   }
 
-  get size() {
+  get size(): number {
     return this.original.size;
   }
 
-  get type() {
+  get type(): FileType {
     switch (this.original.type) {
       case 'd':
         return FileType.Directory;
@@ -24,7 +24,7 @@ export default class FtpFileInfo implements FileInfo {
     }
   }
 
-  get isDirectory() {
+  get isDirectory(): boolean {
     return this.original.type === 'd';
   }
 }

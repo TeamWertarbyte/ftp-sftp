@@ -6,11 +6,11 @@ import LocalFileInfo from './LocalFileInfo';
 import { FileType } from '../FileInfo';
 
 export default class LocalFileSystem implements FileSystem<LocalFileInfo> {
-  static create() {
+  static create(): Promise<LocalFileSystem> {
     return Promise.resolve(new LocalFileSystem());
   }
 
-  async list(path: string) {
+  async list(path: string): Promise<LocalFileInfo[]> {
     const files = await readdir(path);
     return Promise.all(files.map(async (fileName) => new LocalFileInfo(fileName, await stat(join(path, fileName)))));
   }
@@ -40,11 +40,11 @@ export default class LocalFileSystem implements FileSystem<LocalFileInfo> {
     });
   }
 
-  async mkdir(path: string, recursive: boolean) {
+  async mkdir(path: string, recursive: boolean): Promise<void> {
     await mkdir(path, { recursive });
   }
 
-  async rmdir(path: string, recursive: boolean) {
+  async rmdir(path: string, recursive: boolean): Promise<void> {
     if (recursive) {
       await rm(path, { recursive: true, force: true });
     } else {
@@ -52,11 +52,11 @@ export default class LocalFileSystem implements FileSystem<LocalFileInfo> {
     }
   }
 
-  async delete(path: string) {
+  async delete(path: string): Promise<void> {
     await rm(path);
   }
 
-  async rename(oldPath: string, newPath: string) {
+  async rename(oldPath: string, newPath: string): Promise<void> {
     await rename(oldPath, newPath);
   }
 
@@ -71,7 +71,7 @@ export default class LocalFileSystem implements FileSystem<LocalFileInfo> {
     }
   }
 
-  async close() {
+  async close(): Promise<void> {
     // no-op
   }
 }
