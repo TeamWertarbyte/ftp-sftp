@@ -6,9 +6,15 @@ import SftpFileInfo from './SftpFileInfo';
 export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
   constructor(public readonly client: SftpClient) {}
 
-  static async create(options: SftpClient.ConnectOptions) {
+  static async create(
+    host: string,
+    port: number,
+    user: string,
+    password?: string,
+    options?: SftpClient.ConnectOptions,
+  ) {
     const c = new SftpClient();
-    await c.connect(options);
+    await c.connect({ host, port, username: user, password, ...options });
     return new SftpFileSystem(c);
   }
 

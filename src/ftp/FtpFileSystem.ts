@@ -6,7 +6,13 @@ import FtpFileInfo from './FtpFileInfo';
 export default class FtpFileSystem implements FileSystem<FtpFileInfo> {
   constructor(public readonly client: FtpClient) {}
 
-  static async create(options: FtpClient.Options): Promise<FtpFileSystem | Error> {
+  static async create(
+    host: string,
+    port: number,
+    user: string,
+    password: string,
+    options?: FtpClient.Options,
+  ): Promise<FtpFileSystem | Error> {
     const c = new FtpClient();
     return new Promise((resolve, reject) => {
       c.on('ready', () => {
@@ -15,7 +21,13 @@ export default class FtpFileSystem implements FileSystem<FtpFileInfo> {
       c.once('error', (err: Error) => {
         reject(err);
       });
-      c.connect(options);
+      c.connect({
+        host,
+        port,
+        user,
+        password,
+        ...options,
+      });
     });
   }
 
