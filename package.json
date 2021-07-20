@@ -46,7 +46,7 @@
     "type": "git",
     "url": "git+https://github.com/TeamWertarbyte/ftp-sftp.git"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "build": "rimraf build && tsc",
     "lint": "eslint './**/*.{ts,js,json}' --fix"
