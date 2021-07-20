@@ -4,7 +4,7 @@ export default interface FileSystem<TFileInfo extends FileInfo> {
   list(path: string): Promise<TFileInfo[]>;
   put(src: NodeJS.ReadableStream, toPath: string): Promise<void>;
   get(path: string): Promise<Buffer>;
-  readToStream(path: string): Promise<NodeJS.ReadableStream>;
+  getStream(path: string): Promise<NodeJS.ReadableStream>;
   mkdir(path: string, recursive: boolean): Promise<void>;
   rmdir(path: string, recursive: boolean): Promise<void>;
   delete(path: string): Promise<void>;

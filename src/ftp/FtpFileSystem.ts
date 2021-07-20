@@ -78,7 +78,7 @@ export default class FtpFileSystem implements FileSystem<FtpFileInfo> {
     });
   }
 
-  readToStream(path: string): Promise<NodeJS.ReadableStream> {
+  getStream(path: string): Promise<NodeJS.ReadableStream> {
     return new Promise<NodeJS.ReadableStream>((resolve, reject) => {
       this.client.get(path, (err: Error, stream: NodeJS.ReadableStream) => {
         if (err) {
