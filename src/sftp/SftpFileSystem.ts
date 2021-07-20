@@ -1,10 +1,11 @@
+import { SFTPWrapper } from 'ssh2';
 import SftpClient from 'ssh2-sftp-client';
 import { FileType } from '../FileInfo';
 import FileSystem from '../FileSystem';
 import SftpFileInfo from './SftpFileInfo';
 
 export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
-  constructor(public readonly client: SftpClient) {}
+  constructor(public readonly client: SftpClient, private readonly sftp: SFTPWrapper) {}
 
   /**
    * Create a SftpFileSystem and open the connection.
@@ -25,8 +26,8 @@ export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
     connectionOptions?: SftpClient.ConnectOptions;
   }): Promise<SftpFileSystem> {
     const c = new SftpClient();
-    await c.connect({ host, port, username: user, password, ...connectionOptions });
-    return new SftpFileSystem(c);
+    const sftp = await c.connect({ host, port, username: user, password, ...connectionOptions });
+    return new SftpFileSystem(c, sftp);
   }
 
   async list(path: string): Promise<SftpFileInfo[]> {
@@ -42,8 +43,14 @@ export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
     return this.client.get(path) as Promise<Buffer>;
   }
 
-  async readToStream(path: string, destination: NodeJS.WritableStream): Promise<void> {
-    await this.client.get(path, destination);
+  async readToStream(path: string): Promise<NodeJS.ReadableStream> {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(this.sftp.createReadStream(path));
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   async mkdir(path: string, recursive: boolean): Promise<void> {

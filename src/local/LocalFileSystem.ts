@@ -31,12 +31,11 @@ export default class LocalFileSystem implements FileSystem<LocalFileInfo> {
     return readFile(path);
   }
 
-  readToStream(path: string, destination: NodeJS.WritableStream): Promise<void> {
+  readToStream(path: string): Promise<NodeJS.ReadableStream> {
     const stream = createReadStream(path);
     return new Promise((resolve, reject) => {
       stream.once('error', (err) => reject(err));
-      stream.once('end', () => resolve());
-      stream.pipe(destination);
+      stream.once('end', () => resolve(stream));
     });
   }
 
