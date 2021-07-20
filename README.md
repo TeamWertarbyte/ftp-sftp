@@ -59,7 +59,7 @@ interface FileSystem {
   list(path: string): Promise<FileInfo[]>;
   put(src: NodeJS.ReadableStream, toPath: string): Promise<void>;
   get(path: string): Promise<Buffer>;
-  readToStream(path: string, destination: NodeJS.WritableStream): Promise<void>;
+  readToStream(path: string): Promise<NodeJS.ReadableStream>;
   mkdir(path: string, recursive: boolean): Promise<void>;
   rmdir(path: string, recursive: boolean): Promise<void>;
   delete(path: string): Promise<void>;
