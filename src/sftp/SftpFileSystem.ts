@@ -44,13 +44,7 @@ export default class SftpFileSystem implements FileSystem<SftpFileInfo> {
   }
 
   async getStream(path: string): Promise<NodeJS.ReadableStream> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.sftp.createReadStream(path));
-      } catch (e) {
-        reject(e);
-      }
-    });
+    return this.sftp.createReadStream(path);
   }
 
   async mkdir(path: string, recursive: boolean): Promise<void> {

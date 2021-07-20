@@ -84,8 +84,7 @@ export default class FtpFileSystem implements FileSystem<FtpFileInfo> {
         if (err) {
           return reject(err);
         }
-        stream.once('error', (err) => reject(err));
-        stream.once('end', () => resolve(stream));
+        resolve(stream);
       });
     });
   }

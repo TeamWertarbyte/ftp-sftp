@@ -31,12 +31,8 @@ export default class LocalFileSystem implements FileSystem<LocalFileInfo> {
     return readFile(path);
   }
 
-  getStream(path: string): Promise<NodeJS.ReadableStream> {
-    const stream = createReadStream(path);
-    return new Promise((resolve, reject) => {
-      stream.once('error', (err) => reject(err));
-      stream.once('end', () => resolve(stream));
-    });
+  async getStream(path: string): Promise<NodeJS.ReadableStream> {
+    return createReadStream(path);
   }
 
   async mkdir(path: string, recursive: boolean): Promise<void> {
