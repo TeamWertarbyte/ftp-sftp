@@ -25,12 +25,12 @@ export default class FtpFileSystem implements FileSystem<FtpFileInfo> {
     connectionOptions?: FtpClient.Options;
   }): Promise<FtpFileSystem> {
     const c = new FtpClient();
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       c.on('ready', () => {
         resolve(new FtpFileSystem(c));
       });
       c.once('error', (err: Error) => {
-        throw err;
+        reject(err);
       });
       c.connect({
         host,
