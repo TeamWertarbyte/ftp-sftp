@@ -23,14 +23,14 @@ export default class FtpFileSystem implements FileSystem<FtpFileInfo> {
     user: string;
     password: string;
     connectionOptions?: FtpClient.Options;
-  }): Promise<FtpFileSystem | Error> {
+  }): Promise<FtpFileSystem> {
     const c = new FtpClient();
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       c.on('ready', () => {
         resolve(new FtpFileSystem(c));
       });
       c.once('error', (err: Error) => {
-        reject(err);
+        throw err;
       });
       c.connect({
         host,
