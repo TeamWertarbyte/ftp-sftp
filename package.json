@@ -49,7 +49,8 @@
   "version": "0.2.1",
   "scripts": {
     "build": "rimraf build && tsc",
-    "lint": "eslint './**/*.{ts,js,json}' --fix"
+    "lint": "eslint './**/*.{ts,js,json}' --fix",
+    "prepublish": "rimraf build && tsc"
   },
   "files": [
     "build/**/*"
