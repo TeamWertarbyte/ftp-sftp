@@ -58,7 +58,7 @@ export default class LocalFileSystem implements FileSystem<LocalFileInfo> {
   async exists(path: string): Promise<false | FileType> {
     try {
       return LocalFileInfo.getType(await stat(path));
-    } catch (e) {
+    } catch (e: any) {
       if (e?.code === 'ENOENT') {
         return false;
       }

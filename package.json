@@ -13,12 +13,12 @@
   ],
   "dependencies": {
     "@types/ftp": "^0.3.32",
-    "@types/ssh2-sftp-client": "^5.3.2",
     "ftp": "^0.3.10",
-    "ssh2-sftp-client": "^7.0.0"
+    "ssh2-sftp-client": "^10.0.3"
   },
   "devDependencies": {
     "@types/node": "^14.17.5",
+    "@types/ssh2-sftp-client": "^9.0.3",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
     "eslint": "^7.30.0",

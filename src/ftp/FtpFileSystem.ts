@@ -137,7 +137,7 @@ export default class FtpFileSystem implements FileSystem<FtpFileInfo> {
     try {
       const result = await this.list(path);
       return result[0].type;
-    } catch (err) {
+    } catch (err: any) {
       if (err.code === 550) {
         // not found or action not taken
         return false;
